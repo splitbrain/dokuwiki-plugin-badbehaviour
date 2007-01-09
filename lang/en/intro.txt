@@ -1,0 +1,6 @@
+====== Bad Behaviour Statistics ======
+
+This page gives you an overview on the amount of access tries that
+where blocked by the badbehaviour plugin in the last days and the
+most common reasons.
+
