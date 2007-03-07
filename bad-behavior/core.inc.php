@@ -57,6 +57,9 @@ function bb2_insert($settings, $package, $key)
 // Kill 'em all!
 function bb2_banned($settings, $package, $key, $previous_key=false)
 {
+	// Some spambots hit too hard. Slow them down a bit.
+	sleep(2);
+
 	require_once(BB2_CORE . "/banned.inc.php");
 	bb2_display_denial($settings, $key, $previous_key);
 	bb2_log_denial($settings, $package, $key, $previous_key);

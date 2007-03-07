@@ -31,9 +31,11 @@ function bb2_blacklist($package) {
 		"Mozilla/4.0(",		// from honeypot
 		"Mozilla/4.0+(",	// suspicious harvester
 		"MSIE",			// malicious software
+		"NutchCVS",		// unidentified robots
 		"OmniExplorer",		// spam harvester
-		"PussyCat ",		// misc comment spam
 		"psycheclone",		// spam harvester
+		"PussyCat ",		// misc comment spam
+		"PycURL",		// misc comment spam
 		"Shockwave Flash",	// spam harvester
 		"User Agent: ",		// spam harvester
 		"User-Agent: ",		// spam harvester
@@ -43,6 +45,7 @@ function bb2_blacklist($package) {
 
 	// These user agent strings occur anywhere within the line.
 	$bb2_spambots = array(
+		"\r",			// A really dumb bot
 		"; Widows ",		// misc comment/email spam
 		"a href=",		// referrer spam
 		"Bad Behavior Test",	// Add this to your user-agent to test BB
@@ -58,6 +61,7 @@ function bb2_blacklist($package) {
 		".NET CLR 1)",		// free poker, etc.
 		"POE-Component-Client",	// free poker, etc.
 		"Turing Machine",	// www.anonymizer.com abuse
+		"WebaltBot",		// spam harvester
 		"WISEbot",		// spam harvester
 		"WISEnutbot",		// spam harvester
 		"Windows NT 4.0;)",	// wikispam bot

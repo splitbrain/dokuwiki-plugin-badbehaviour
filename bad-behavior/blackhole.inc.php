@@ -5,18 +5,18 @@
 function bb2_blackhole($package) {
 	// Only conservative lists
 	$bb2_blackhole_lists = array(
-		"sbl-xbl.spamhaus.org",
+		"sbl-xbl.spamhaus.org",	// All around nasties
 //		"dnsbl.sorbs.net",	// Old useless data.
 //		"list.dsbl.org",	// Old useless data.
-		"opm.blitzed.org",
+		"dnsbl.ioerror.us",	// Bad Behavior Blackhole
 	);
 	
 	// Things that shouldn't be blocked, from aggregate lists
 	$bb2_blackhole_exceptions = array(
-		"sbl-xbl.spamhaus.org" => array(),
+		"sbl-xbl.spamhaus.org" => array("127.0.0.4"),	// CBL is problematic
 		"dnsbl.sorbs.net" => array("127.0.0.10",),	// Dynamic IPs only
 		"list.dsbl.org" => array(),
-		"opm.blitzed.org" => array(),
+		"dnsbl.ioerror.us" => array(),
 	);
 
 	// Check the blackhole lists

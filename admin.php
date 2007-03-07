@@ -46,7 +46,17 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
      * output appropriate html
      */
     function html() {
-        print $this->plugin_locale_xhtml('intro');
+        if($_REQUEST['lookup']){
+            $this->_lookup($_REQUEST['lookup']);
+        }else{
+            $this->_stats();
+        }
+
+        echo $this->_lookupform();
+    }
+
+    function _stats(){
+        print $this->plugin_locale_xhtml('stats');
 
         $days = 7;
         $list = $this->_readlines($days);
@@ -61,7 +71,7 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
         }
         arsort($stats);
 
-        echo "<p><b>$all accesses were blocked in the last $days days.</b></p>";
+        printf('<p><b>'.$this->getLang('blocked').'</b></p>',$all,$days);
 
         echo '<table class="inline">';
         echo '<tr>';
@@ -84,6 +94,61 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
             echo '</tr>';
         }
         echo '</table>';
+    }
+
+    function _lookup($key){
+        global $ID;
+        global $conf;
+        global $lang;
+
+        print $this->plugin_locale_xhtml('lookup');
+
+        $code = str_replace('-','',$key);
+        $ip   = hexdec(substr($code,0,2)).'.'.
+                hexdec(substr($code,2,2)).'.'.
+                hexdec(substr($code,4,2)).'.'.
+                hexdec(substr($code,6,2));
+        $code = substr($code,8);
+
+        $resp = bb2_get_response($code);
+        printf('<p>'.$this->getLang('lkpresult').'</p>',
+               $ip,$resp['log'],$resp['explanation'],hsc($key));
+
+        printf('<p>'.$this->getLang('lkplist').'</p>',7);
+
+        $lines = preg_grep('/'.preg_quote($ip).'/',$this->_readlines());
+        if(count($lines)){
+            echo '<table class="inline">';
+            foreach($lines as $line){
+                $fields = explode("\t",$line);
+                $resp = bb2_get_response($fields[6]);
+                echo '<tr>';
+                echo '<td>'.date($conf['dformat'],$fields[0]).'</td>';
+                echo '<td>'.hsc($fields[1]).'</td>';
+                echo '<td>'.hsc($fields[2]).'</td>';
+                echo '<td>'.hsc($fields[3]).'</td>';
+                echo '<td>'.hsc($fields[4]).'</td>';
+                echo '<td>'.hsc($fields[5]).'</td>';
+                echo '<td>'.$resp['log'].'</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        }else{
+            echo '<p><i>'.$lang['nothingfound'].'</i></p>';
+        }
+    }
+
+    function _lookupform(){
+        global $lang;
+        echo '<div>';
+        echo '<form action="" method="get">';
+        echo '<input type="hidden" name="do" value="admin" />';
+        echo '<input type="hidden" name="page" value="badbehaviour" />';
+        echo '<label for="key__lookup">'.$this->getLang('lookup').':</label> ';
+        echo '<input type="text" id="key__lookup" name="lookup" value="'.hsc($_REQUEST['lookup']).'" />';
+        echo '<input type="submit" value="'.$lang['btn_search'].'" class="button" />';
+        echo '</form>';
+        echo '</div>';
     }
 
     /**

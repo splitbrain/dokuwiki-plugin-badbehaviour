@@ -59,10 +59,10 @@ function bb2_post($settings, $package)
 
 		// Screen for user agent changes
 		// User connected previously with blank user agent
-		$q = bb2_db_query("SELECT `ip` FROM " . $settings['log_table'] . " WHERE (`ip` = '" . $package['ip'] . "' OR `ip` = '" . $screener[1] . "') AND `user_agent` = '' AND `date` > DATE_SUB('" . bb2_db_date() . "', INTERVAL 1 MINUTE)");
+//		$q = bb2_db_query("SELECT `ip` FROM " . $settings['log_table'] . " WHERE (`ip` = '" . $package['ip'] . "' OR `ip` = '" . $screener[1] . "') AND `user_agent` != '" . $package['user_agent'] . "' AND `date` > DATE_SUB('" . bb2_db_date() . "', INTERVAL 5 MINUTE)");
 		// Damnit, too many ways for this to fail :(
-		if ($q !== FALSE && $q != NULL && bb2_db_num_rows($q) > 0)
-			return "799165c2";
+//		if ($q !== FALSE && $q != NULL && bb2_db_num_rows($q) > 0)
+//			return "799165c2";
 	}
 
 	return false;

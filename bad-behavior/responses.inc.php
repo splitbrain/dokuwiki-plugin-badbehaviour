@@ -6,7 +6,7 @@ function bb2_get_response($key) {
 	$bb2_responses = array(
 		'00000000' => array('response' => 200, 'explanation' => '', 'log' => ''),
 		'136673cd' => array('response' => 403, 'explanation' => 'Your Internet Protocol address is listed on a blacklist of addresses involved in malicious or illegal activity. See the listing below for more details on specific blacklists and removal procedures.', 'log' => 'IP address found on external blacklist'),
-		'17566707' => array('response' => 400, 'explanation' => 'An invalid request was received from your browser. This may be caused by a malfunctioning proxy server or browser privacy software.', 'log' => 'Required header \'Accept\' missing'),
+		'17566707' => array('response' => 403, 'explanation' => 'An invalid request was received from your browser. This may be caused by a malfunctioning proxy server or browser privacy software.', 'log' => 'Required header \'Accept\' missing'),
 		'17f4e8c8' => array('response' => 403, 'explanation' => 'You do not have permission to access this server.', 'log' => 'User-Agent was found on blacklist'),
 		'21f11d3f' => array('response' => 403, 'explanation' => 'An invalid request was received. You claimed to be a mobile Web device, but you do not actually appear to be a mobile Web device.', 'log' => 'User-Agent claimed to be AvantGo, claim appears false'),
 		'2b90f772' => array('response' => 403, 'explanation' => 'You do not have permission to access this server. If you are using the Opera browser, then Opera must appear in your user agent.', 'log' => 'Connection: TE present, not supported by MSIE'),
