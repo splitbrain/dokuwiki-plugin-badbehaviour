@@ -26,20 +26,24 @@ function bb2_blacklist($package) {
 		"LWP",			// spambot scripts
 		"Microsoft URL",	// spam harvester
 		"Missigua",		// spam harvester
+		"MJ12bot",		// crawls MUCH too fast
 		"Movable Type",		// customised spambots
 		"Mozilla ",		// malicious software
 		"Mozilla/4.0(",		// from honeypot
 		"Mozilla/4.0+(",	// suspicious harvester
 		"MSIE",			// malicious software
 		"NutchCVS",		// unidentified robots
+		"Nutscrape/",		// misc comment spam
 		"OmniExplorer",		// spam harvester
 		"psycheclone",		// spam harvester
 		"PussyCat ",		// misc comment spam
 		"PycURL",		// misc comment spam
 		"Shockwave Flash",	// spam harvester
+		"TrackBack/",		// trackback spam
+		"user",			// suspicious harvester
 		"User Agent: ",		// spam harvester
 		"User-Agent: ",		// spam harvester
-		"Wordpress Hash Grabber",// malicious software
+		"Wordpress",		// malicious software
 		"\"",			// malicious software
 	);
 

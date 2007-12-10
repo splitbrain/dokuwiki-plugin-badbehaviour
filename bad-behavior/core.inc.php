@@ -179,7 +179,7 @@ function bb2_start($settings)
 		} elseif (stripos($ua, "Googlebot") !== FALSE || stripos($ua, "Mediapartners-Google") !== FALSE) {
 			require_once(BB2_CORE . "/google.inc.php");
 			bb2_test($settings, $package, bb2_google($package));
-		} elseif (stripos($ua, "Mozilla") !== FALSE && stripos($ua, "Mozilla" == 0)) {
+		} elseif (stripos($ua, "Mozilla") !== FALSE && stripos($ua, "Mozilla") == 0) {
 			$package['is_browser'] = true;
 			require_once(BB2_CORE . "/mozilla.inc.php");
 			bb2_test($settings, $package, bb2_mozilla($package));
