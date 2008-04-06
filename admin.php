@@ -18,8 +18,7 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
      * return some info
      */
     function getInfo(){
-        include(BB2_CWD.'/info.php');
-        return $info;
+        return confToHash(dirname(__FILE__).'/info.txt');
     }
 
     /**
@@ -123,7 +122,7 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
                 $fields = explode("\t",$line);
                 $resp = bb2_get_response($fields[6]);
                 echo '<tr>';
-                echo '<td>'.date($conf['dformat'],$fields[0]).'</td>';
+                echo '<td>'.strftime($conf['dformat'],$fields[0]).'</td>';
                 echo '<td>'.hsc($fields[1]).'</td>';
                 echo '<td>'.hsc($fields[2]).'</td>';
                 echo '<td>'.hsc($fields[3]).'</td>';

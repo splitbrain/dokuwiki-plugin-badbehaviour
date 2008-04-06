@@ -18,8 +18,7 @@ class action_plugin_badbehaviour extends DokuWiki_Action_Plugin {
      * return some info
      */
     function getInfo(){
-        include(BB2_CWD.'/info.php');
-        return $info;
+        return confToHash(dirname(__FILE__).'/info.txt');
     }
 
     /**

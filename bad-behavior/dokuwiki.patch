@@ -1,5 +1,5 @@
---- post.inc.php.orig	2006-11-30 22:19:52.000000000 +0100
-+++ post.inc.php	2006-11-30 22:20:43.000000000 +0100
+--- post.inc.php.orig	2008-04-06 20:31:33.000000000 +0200
++++ post.inc.php	2008-04-06 20:34:27.000000000 +0200
 @@ -3,9 +3,12 @@
  // All tests which apply specifically to POST requests
  function bb2_post($settings, $package)
@@ -9,9 +9,9 @@
 -	bb2_test($settings, $package, bb2_blackhole($package));
 +    // config check added for DokuWiki plugin
 +    if(!$settings['skipblackhole']){
-+	    // Check blackhole lists for known spam/malicious activity
-+	    require_once(BB2_CORE . "/blackhole.inc.php");
-+	    bb2_test($settings, $package, bb2_blackhole($package));
++    	// Check blackhole lists for known spam/malicious activity
++    	require_once(BB2_CORE . "/blackhole.inc.php");
++    	bb2_test($settings, $package, bb2_blackhole($package));
 +    }
  
  	// MovableType needs specialized screening

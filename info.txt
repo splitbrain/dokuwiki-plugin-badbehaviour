@@ -1,0 +1,6 @@
+author = Andreas Gohr
+email  = andi@splitbrain.org
+date   = 2008-04-06
+name   = Bad Behaviour Plugin (based on version 2.0.13)
+desc   = Protects the wiki against malicious users and spiders
+url    = http://wiki:splitbrain.org/plugin:badbehaviour
