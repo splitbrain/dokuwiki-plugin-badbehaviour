@@ -80,7 +80,7 @@ function bb2_approved($settings, $package)
 	}
 
 	// Decide what to log on approved requests.
-	if ($settings['verbose'] || empty($package['user_agent'])) {
+	if (($settings['verbose'] && $settings['logging']) || empty($package['user_agent'])) {
 		bb2_db_query(bb2_insert($settings, $package, "00000000"));
 	}
 }
@@ -137,9 +137,14 @@ function bb2_start($settings)
 		require_once(BB2_CORE . "/blacklist.inc.php");
 		bb2_test($settings, $package, bb2_blacklist($package));
 
+		// Check the http:BL
+		require_once(BB2_CORE . "/blackhole.inc.php");
+		bb2_test($settings, $package, bb2_httpbl($settings, $package));
+
 		// Check for common stuff
 		require_once(BB2_CORE . "/common_tests.inc.php");
 		bb2_test($settings, $package, bb2_protocol($settings, $package));
+		bb2_test($settings, $package, bb2_cookies($settings, $package));
 		bb2_test($settings, $package, bb2_misc_headers($settings, $package));
 
 		// Specific checks

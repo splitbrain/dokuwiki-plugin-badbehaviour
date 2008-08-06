@@ -20,6 +20,16 @@ function bb2_protocol($settings, $package)
 	return false;
 }
 
+function bb2_cookies($settings, $package)
+{
+	// Enforce RFC 2965 sec 3.3.5 and 9.1
+	// Bots wanting new-style cookies should send Cookie2
+	if (strpos($package['headers_mixed']['Cookie'], '$Version=0') !== FALSE && !array_key_exists('Cookie2', $package['headers_mixed'])) {
+		return '6c502ff1';
+	}
+	return false;
+}
+
 function bb2_misc_headers($settings, $package)
 {
 	$ua = $package['headers_mixed']['User-Agent'];
@@ -55,7 +65,7 @@ function bb2_misc_headers($settings, $package)
 	// Exceptions: Clearswift uses lowercase via (refuses to fix;
 	// may be blocked again in the future)
 	if (array_key_exists('via', $package['headers']) &&
-		!strstr($package['headers']['via'],'Clearswift Web Policy Engine')) {
+		strpos($package['headers']['via'],'Clearswift') === FALSE) {
 		return "9c9e4979";
 	}
 
@@ -96,6 +106,7 @@ function bb2_misc_headers($settings, $package)
 	if (array_key_exists('X-Aaaaaaaaaaaa', $package['headers_mixed']) || array_key_exists('X-Aaaaaaaaaa', $package['headers_mixed'])) {
 		return "b9cc1d86";
 	}
+	// Proxy-Connection does not exist and should never be seen in the wild
 	if (array_key_exists('Proxy-Connection', $package['headers_mixed'])) {
 		return "b7830251";
 	}
@@ -114,6 +125,12 @@ function bb2_misc_headers($settings, $package)
 		}
 	}
 	
+	// "uk" is not a language (ISO 639) nor a country (ISO 3166)
+	// oops, yes it is :( Please shoot any Ukrainian spammers you see.
+#	if (preg_match('/\buk\b/', $package['headers_mixed']['Accept-Language'])) {
+#		return "35ea7ffa";
+#	}
+
 	return false;
 }
 
