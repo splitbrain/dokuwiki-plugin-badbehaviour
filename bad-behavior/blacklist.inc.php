@@ -94,7 +94,7 @@ function bb2_blacklist($package) {
 
 	// Do not edit below this line.
 
-	$ua = $package['headers_mixed']['User-Agent'];
+	@$ua = $package['headers_mixed']['User-Agent'];
 
 	foreach ($bb2_spambots_0 as $spambot) {
 		$pos = strpos($ua, $spambot);

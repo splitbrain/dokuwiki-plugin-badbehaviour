@@ -32,7 +32,7 @@ function bb2_cookies($settings, $package)
 
 function bb2_misc_headers($settings, $package)
 {
-	$ua = $package['headers_mixed']['User-Agent'];
+	@$ua = $package['headers_mixed']['User-Agent'];
 
 	if (!strcmp($package['request_method'], "POST") && empty($ua)) {
 		return "f9f2b8b9";
@@ -51,7 +51,7 @@ function bb2_misc_headers($settings, $package)
 	// Exceptions: MT (not fixable); LJ (refuses to fix; may be
 	// blocked again in the future)
 	if (array_key_exists('Range', $package['headers_mixed']) && strpos($package['headers_mixed']['Range'], "=0-") !== FALSE) {
-		if (strncmp($ua, "MovableType", 11) && strncmp($ua, "URI::Fetch", 10)) {
+		if (strncmp($ua, "MovableType", 11) && strncmp($ua, "URI::Fetch", 10) && strncmp($ua, "php-openid/", 11)) {
 			return "7ad04a8a";
 		}
 	}

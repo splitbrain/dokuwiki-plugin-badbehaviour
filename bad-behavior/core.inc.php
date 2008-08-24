@@ -115,7 +115,7 @@ function bb2_start($settings)
 	$request_method = $_SERVER['REQUEST_METHOD'];
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$server_protocol = $_SERVER['SERVER_PROTOCOL'];
-	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	@$user_agent = $_SERVER['HTTP_USER_AGENT'];
 
 	// Reconstruct the HTTP entity, if present.
 	$request_entity = array();
@@ -148,7 +148,7 @@ function bb2_start($settings)
 		bb2_test($settings, $package, bb2_misc_headers($settings, $package));
 
 		// Specific checks
-		$ua = $headers_mixed['User-Agent'];
+		@$ua = $headers_mixed['User-Agent'];
 		// MSIE checks
 		if (stripos($ua, "MSIE") !== FALSE) {
 			$package['is_browser'] = true;
