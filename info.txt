@@ -1,6 +1,6 @@
-author = Andreas Gohr
-email  = andi@splitbrain.org
-date   = 2008-08-24
-name   = Bad Behaviour Plugin (based on version 2.0.23)
-desc   = Protects the wiki against malicious users and spiders
-url    = http://wiki:splitbrain.org/plugin:badbehaviour
+author Andreas Gohr
+email  andi@splitbrain.org
+date   2008-08-24
+name   Bad Behaviour Plugin (based on library version 2.0.31)
+desc   Protects the wiki against malicious users and spiders
+url    http://www.dokuwiki.org/plugin:badbehaviour
