@@ -107,4 +107,3 @@ function bb2_banned_callback($settings, $package, $key){
     io_saveFile($conf['cachedir'].'/badbehaviour.log',join("\t",$data)."\n",true);
 }
 
-?>

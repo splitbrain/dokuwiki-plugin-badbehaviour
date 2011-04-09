@@ -1,18 +1,22 @@
---- post.inc.php.orig	2008-04-06 20:31:33.000000000 +0200
-+++ post.inc.php	2008-04-06 20:34:27.000000000 +0200
-@@ -3,9 +3,12 @@
- // All tests which apply specifically to POST requests
- function bb2_post($settings, $package)
- {
--	// Check blackhole lists for known spam/malicious activity
--	require_once(BB2_CORE . "/blackhole.inc.php");
--	bb2_test($settings, $package, bb2_blackhole($package));
-+    // config check added for DokuWiki plugin
-+    if(!$settings['skipblackhole']){
-+    	// Check blackhole lists for known spam/malicious activity
-+    	require_once(BB2_CORE . "/blackhole.inc.php");
-+    	bb2_test($settings, $package, bb2_blackhole($package));
-+    }
+--- core.inc.php.orig	2011-04-09 17:06:01.000000000 +0200
++++ core.inc.php	2011-04-09 17:33:09.000000000 +0200
+@@ -144,11 +144,14 @@
+ 		bb2_test($settings, $package, bb2_blacklist($package));
  
- 	// MovableType needs specialized screening
- 	if (stripos($package['headers_mixed']['User-Agent'], "MovableType") !== FALSE) {
+ 		// Check the http:BL
+-		require_once(BB2_CORE . "/blackhole.inc.php");
+-		if (bb2_test($settings, $package, bb2_httpbl($settings, $package))) {
+-			// Bypass all checks if http:BL says search engine
+-			bb2_approved($settings, $package);
+-			return true;
++		// config check added for DokuWiki plugin
++		if(!$settings['skipblackhole']){
++			require_once(BB2_CORE . "/blackhole.inc.php");
++			if (bb2_test($settings, $package, bb2_httpbl($settings, $package))) {
++				// Bypass all checks if http:BL says search engine
++				bb2_approved($settings, $package);
++				return true;
++			}
+ 		}
+ 
+ 		// Check for common stuff

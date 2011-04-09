@@ -3,12 +3,9 @@
 // All tests which apply specifically to POST requests
 function bb2_post($settings, $package)
 {
-    // config check added for DokuWiki plugin
-    if(!$settings['skipblackhole']){
-    	// Check blackhole lists for known spam/malicious activity
-    	require_once(BB2_CORE . "/blackhole.inc.php");
-    	bb2_test($settings, $package, bb2_blackhole($package));
-    }
+	// Check blackhole lists for known spam/malicious activity
+	// require_once(BB2_CORE . "/blackhole.inc.php");
+	// bb2_test($settings, $package, bb2_blackhole($package));
 
 	// MovableType needs specialized screening
 	if (stripos($package['headers_mixed']['User-Agent'], "MovableType") !== FALSE) {
@@ -33,7 +30,7 @@ function bb2_post($settings, $package)
 	}
 
 	// If Referer exists, it should refer to a page on our site
-	if ($settings['offsite_forms'] && array_key_exists('Referer', $package['headers_mixed']) && stripos($package['headers_mixed']['Referer'], $package['headers_mixed']['Host']) === FALSE) {
+	if (!$settings['offsite_forms'] && array_key_exists('Referer', $package['headers_mixed']) && stripos($package['headers_mixed']['Referer'], $package['headers_mixed']['Host']) === FALSE) {
 		return "cd361abb";
 	}
 

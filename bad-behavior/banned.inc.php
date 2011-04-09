@@ -7,6 +7,7 @@ require_once(BB2_CORE . "/responses.inc.php");
 
 function bb2_display_denial($settings, $key, $previous_key = false)
 {
+	define('DONOTCACHEPAGE', true);	// WP Super Cache
 	if (!$previous_key) $previous_key = $key;
 	if ($key == "e87553e1") {
 		// FIXME: lookup the real key
@@ -23,16 +24,18 @@ function bb2_display_denial($settings, $key, $previous_key = false)
 	$response = bb2_get_response($previous_key);
 	header("HTTP/1.1 " . $response['response'] . " Bad Behavior");
 	header("Status: " . $response['response'] . " Bad Behavior");
+	$request_uri = $_SERVER['REQUEST_URI'];
+	if (!$request_uri) $request_uri = $_SERVER['SCRIPT_NAME'];	# IIS
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!--< html xmlns="http://www.w3.org/1999/xhtml">-->
 <head>
 <title>HTTP Error <?php echo $response['response']; ?></title>
 </head>
 <body>
 <h1>Error <?php echo $response['response']; ?></h1>
 <p>We're sorry, but we could not fulfill your request for
-<?php echo htmlspecialchars($_SERVER['REQUEST_URI']) ?> on this server.</p>
+<?php echo htmlspecialchars($request_uri) ?> on this server.</p>
 <p><?php echo $response['explanation']; ?></p>
 <p>Your technical support key is: <strong><?php echo $support_key; ?></strong></p>
 <p>You can use this key to <a href="http://www.ioerror.us/bb2-support-key?key=<?php echo $support_key; ?>">fix this problem yourself</a>.</p>

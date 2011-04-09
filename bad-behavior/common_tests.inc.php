@@ -6,7 +6,7 @@ function bb2_protocol($settings, $package)
 {
 	// Is it claiming to be HTTP/1.0?  Then it shouldn't do HTTP/1.1 things
 	// Always run this test; we should never see Expect:
-	if (array_key_exists('Expect', $package['headers_mixed']) && stripos($package['headers_mixed']['Expect'], "100-continue") !== FALSE) {
+	if (array_key_exists('Expect', $package['headers_mixed']) && stripos($package['headers_mixed']['Expect'], "100-continue") !== FALSE && !strcmp($package['server_protocol'], "HTTP/1.0")) {
 		return "a0105122";
 	}
 
@@ -54,9 +54,9 @@ function bb2_misc_headers($settings, $package)
 	// Real user-agents do not start ranges at 0
 	// NOTE: this blocks the whois.sc bot. No big loss.
 	// Exceptions: MT (not fixable); LJ (refuses to fix; may be
-	// blocked again in the future)
+	// blocked again in the future); Facebook
 	if ($settings['strict'] && array_key_exists('Range', $package['headers_mixed']) && strpos($package['headers_mixed']['Range'], "=0-") !== FALSE) {
-		if (strncmp($ua, "MovableType", 11) && strncmp($ua, "URI::Fetch", 10) && strncmp($ua, "php-openid/", 11)) {
+		if (strncmp($ua, "MovableType", 11) && strncmp($ua, "URI::Fetch", 10) && strncmp($ua, "php-openid/", 11) && strncmp($ua, "facebookexternalhit", 19)) {
 			return "7ad04a8a";
 		}
 	}
@@ -69,8 +69,10 @@ function bb2_misc_headers($settings, $package)
 	// Lowercase via is used by open proxies/referrer spammers
 	// Exceptions: Clearswift uses lowercase via (refuses to fix;
 	// may be blocked again in the future)
+	// Coral CDN uses lowercase via
 	if (array_key_exists('via', $package['headers']) &&
-		strpos($package['headers']['via'],'Clearswift') === FALSE) {
+		strpos($package['headers']['via'],'Clearswift') === FALSE &&
+		strpos($ua,'CoralWebPrx') === FALSE) {
 		return "9c9e4979";
 	}
 
@@ -112,7 +114,7 @@ function bb2_misc_headers($settings, $package)
 		return "b9cc1d86";
 	}
 	// Proxy-Connection does not exist and should never be seen in the wild
-	if (array_key_exists('Proxy-Connection', $package['headers_mixed'])) {
+	if ($settings['strict'] && array_key_exists('Proxy-Connection', $package['headers_mixed'])) {
 		return "b7830251";
 	}
 
