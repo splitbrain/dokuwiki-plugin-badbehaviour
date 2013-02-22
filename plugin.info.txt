@@ -1,7 +1,7 @@
 base   badbehaviour
 author Andreas Gohr
 email  andi@splitbrain.org
-date   2012-05-11
+date   2013-02-22
 name   Bad Behaviour Plugin (based on library version 2.0.46)
 desc   Protects the wiki against malicious users and spiders
 url    http://www.dokuwiki.org/plugin:badbehaviour

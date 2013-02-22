@@ -64,7 +64,7 @@ class action_plugin_badbehaviour extends DokuWiki_Action_Plugin {
         // we just use some values from the bb2 script but build our own (better) version
 
         preg_match('/(bb2_addLoadEvent\(function\(\) \{)(.*)(\}\);)/s',$bb2_javascript,$match);
-        $data = 'addInitEvent(function(){'.$match[2].'});';
+        $data = 'jQuery(function(){'.$match[2].'});';
 
         $event->data['script'][] = array( 'type'=>'text/javascript', 'charset'=>'utf-8', '_data'=>$data);
     }
