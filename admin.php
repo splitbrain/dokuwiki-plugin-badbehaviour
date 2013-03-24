@@ -100,7 +100,7 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
         global $conf;
         global $lang;
 
-        print $this->plugin_locale_xhtml('lookup');
+        print $this->locale_xhtml('lookup');
 
         $code = str_replace('-','',$key);
         $ip   = hexdec(substr($code,0,2)).'.'.
