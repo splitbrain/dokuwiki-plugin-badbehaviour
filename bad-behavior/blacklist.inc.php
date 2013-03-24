@@ -31,7 +31,7 @@ function bb2_blacklist($package) {
 		"Missigua",		// spam harvester
 		"MJ12bot/v1.0.8",	// malicious botnet
 		"Movable Type",		// customised spambots
-		"Mozilla ",		// malicious software
+		//"Mozilla ",		// malicious software
 		"Mozilla/2",		// malicious software
 		"Mozilla/4.0(",		// from honeypot
 		"Mozilla/4.0+(compatible;+",	// suspicious harvester
