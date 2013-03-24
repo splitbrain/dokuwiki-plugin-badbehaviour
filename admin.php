@@ -55,7 +55,7 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
     }
 
     function _stats(){
-        print $this->plugin_locale_xhtml('stats');
+        print $this->locale_xhtml('stats');
 
         $days = 7;
         $list = $this->_readlines($days);
@@ -209,4 +209,4 @@ class admin_plugin_badbehaviour extends DokuWiki_Admin_Plugin {
         return $lines;
     }
 }
-//Setup VIM: ex: et ts=4 enc=utf-8 :
+//Setup VIM: ex: et ts=4 :
