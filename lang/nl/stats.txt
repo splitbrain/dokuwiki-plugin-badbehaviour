@@ -1,0 +1,5 @@
+====== Bad Behaviour Statistieken ======
+
+Deze pagina geeft een overzicht van het aantal toegangspogingen die
+door de badbehaviour plugin geblokkeerd werden tijdens de laatste
+dagen met de meest voorkomende redenen erbij.
