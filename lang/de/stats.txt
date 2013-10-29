@@ -1,0 +1,3 @@
+====== Missbrauchs Statistik ======
+
+Diese Seite gibt einen Überblick über die Menge der durch das Plugin geblockten Zugriffsversuche der letzten Tage und der häufigsten Gründe.
