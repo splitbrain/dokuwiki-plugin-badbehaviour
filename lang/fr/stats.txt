@@ -1,0 +1,3 @@
+====== Statistiques des mauvais comportements ======
+
+Cette page offre une vue d'ensemble de la quantité de tentatives d'accès bloqués dans les derniers jours ainsi que les raisons des blocages les plus courantes.
